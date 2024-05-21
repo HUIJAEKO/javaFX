@@ -4,6 +4,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -14,8 +15,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class HelloApplication extends Application {
+    private boolean isPaused = false;
     @Override
     public void start(Stage primaryStage) {
+
         //Text
         Pane pane = new Pane();
         Text text1 = new Text(330, 85, "X");
@@ -58,15 +61,22 @@ public class HelloApplication extends Application {
         pt.setAutoReverse(true);
         pt.play();
 
-        pane.setOnMousePressed(e -> pt.pause());
-        pane.setOnMouseReleased(e -> pt.play());
-
         //addAll
         pane.getChildren().addAll(text1, text2, text3, text4, text5, text6,
                 line1, line2, line3, line4, line5, line6, polyline, circle);
 
         //Scene
         Scene scene = new Scene(pane, 380, 230);
+        scene.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY || event.getButton() == MouseButton.SECONDARY) {
+                if (isPaused) {
+                    pt.play();
+                } else {
+                    pt.pause();
+                }
+                isPaused = !isPaused;
+            }
+        });
         primaryStage.setTitle("CosineCurveBall");
         primaryStage.setScene(scene);
         primaryStage.show();
