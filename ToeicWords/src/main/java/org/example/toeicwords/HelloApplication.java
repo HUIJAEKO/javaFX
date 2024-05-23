@@ -25,7 +25,6 @@ public class HelloApplication extends Application {
     private List<Word> words;
     private static final Logger LOGGER = Logger.getLogger(HelloApplication.class.getName());
 
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -36,14 +35,17 @@ public class HelloApplication extends Application {
 
         primaryStage.setTitle("Word Study Program");
 
+        // Button to open the Excel file
         Button openExcelButton = new Button("Open Excel");
         openExcelButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 18px; -fx-pref-width: 250px;");
         openExcelButton.setOnAction(e -> openExcelFile());
 
+        // Button to start the quiz
         Button quizButton = new Button("Start Quiz");
         quizButton.setStyle("-fx-background-color: #555555; -fx-text-fill: white; -fx-font-size: 18px; -fx-pref-width: 250px;");
         quizButton.setOnAction(e -> startQuiz());
 
+        // Layout for buttons
         VBox buttonBox = new VBox(10);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.getChildren().addAll(openExcelButton, quizButton);
@@ -59,9 +61,9 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(vbox, 400, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
+    // Start quiz
     private void startQuiz() {
         words = readWordsFromExcel();
 
@@ -71,9 +73,11 @@ public class HelloApplication extends Application {
             return;
         }
 
+        // Randomly select a word
         Random random = new Random();
         Word wordToGuess = words.get(random.nextInt(words.size()));
 
+        // Display input dialog
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Quiz");
         dialog.setHeaderText("What is the meaning of '" + wordToGuess.getWord() + "'?");
@@ -82,6 +86,7 @@ public class HelloApplication extends Application {
         if (result.isPresent()) {
             String answer = result.get();
             Alert alert;
+            // Check the answer
             if (answer.equalsIgnoreCase(wordToGuess.getMeaning())) {
                 alert = new Alert(Alert.AlertType.CONFIRMATION, "Correct!", ButtonType.NEXT, ButtonType.CLOSE);
                 DialogPane dialogPane = alert.getDialogPane();
@@ -98,6 +103,7 @@ public class HelloApplication extends Application {
         }
     }
 
+    // Method to read words from Excel file
     private List<Word> readWordsFromExcel() {
         List<Word> words = new ArrayList<>();
         File file = new File(FILE_PATH);
@@ -105,8 +111,9 @@ public class HelloApplication extends Application {
             return words;
         }
         try (FileInputStream fis = new FileInputStream(file);
-        Workbook workbook = WorkbookFactory.create(fis)) {
+             Workbook workbook = WorkbookFactory.create(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
+            // Read each row in the Excel
             for (Row row : sheet) {
                 Cell wordCell = row.getCell(0);
                 Cell meaningCell = row.getCell(1);
@@ -123,6 +130,7 @@ public class HelloApplication extends Application {
         return words;
     }
 
+    // Method to open the Excel file
     private static void openExcelFile() {
         File file = new File(FILE_PATH);
 
@@ -134,7 +142,7 @@ public class HelloApplication extends Application {
         }
     }
 
-
+    // Inner class to represent a word and its meaning
     public static class Word {
         private final String word;
         private final String meaning;
@@ -157,5 +165,4 @@ public class HelloApplication extends Application {
             return "Word: " + word + ", Meaning: " + meaning;
         }
     }
-
 }
