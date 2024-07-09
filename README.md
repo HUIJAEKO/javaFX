@@ -9,12 +9,20 @@
 
 어플리케이션을 처음 실행하면 두 가지 옵션이 존재합니다. 첫 번째는 "Open Excel", 두 번째는 "Start Quiz"입니다.
 
-먼저, "Open Excel" 버튼을 눌러보면, ToeicWords 파일 아래에 있는 words.xlsx 파일이 열리게 됩니다.
+![start](/images/start.png)
+
+먼저, "Open Excel" 버튼을 눌러보면, ToeicWords 파일 아래에 있는 words.xlsx 파일이 열리게 됩니다. 파일을 열어 단어를 추가하거나, 삭제할 수 있습니다.
+
+![excel](/images/openExcel.png)
 
 Excel 파일을 끄고 이제 "Start Quiz" 버튼을 누르게 되면, 엑셀 파일에 있는 7개의 단어 중 무작위로 단어가 나오게 됩니다. 단어의 뜻을 맞추게 되면 초록색 화면이 뜨고, 만약 틀리게 된다면 정답과 함께 빨간 화면이 뜨게 됩니다.
+
+![solve](/images/solve.png)
+
+![correct](/images/correct.png)
+
+![wrong](/images/wrong.png)
 
 또한 여기서 "Next"를 누르게 되면, 다른 단어가 랜덤으로 나오게 됩니다.
 
 "Close"를 누르면 초기 화면으로 돌아갑니다.
-
-만약 단어를 추가하고 싶다면 "Opne Excel" 버튼을 눌러 엑셀에 단어를 추가하여 재실행하면 됩니다.
